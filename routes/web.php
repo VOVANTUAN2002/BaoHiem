@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\InsuranceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,12 +23,12 @@ Route::group([
     Route::get('/', [IndexController::class, 'index'])->name('admin.index');
 
     Route::prefix('products')->group(function () {
-        Route::get('/trash', [ProductController::class, 'trashedItems'])->name('products.trash');
-        Route::delete('/force_destroy/{id}', [ProductController::class, 'force_destroy'])->name('products.force_destroy');
-        Route::get('/restore/{id}', [ProductController::class, 'restore'])->name('products.restore');
+        Route::get('/trash', [InsuranceController::class, 'trashedItems'])->name('products.trash');
+        Route::delete('/force_destroy/{id}', [InsuranceController::class, 'force_destroy'])->name('products.force_destroy');
+        Route::get('/restore/{id}', [InsuranceController::class, 'restore'])->name('products.restore');
     });
 
-    Route::resource('products', ProductController::class);
+    Route::resource('products', InsuranceController::class);
 });
 
 Route::get('administrator/login', [AuthController::class, 'login'])->name('login');
