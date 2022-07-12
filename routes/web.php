@@ -13,6 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group([
+    'prefix' => 'administrator',
+    'middleware' => ['auth']
+], function () {
+    Route::get('/', [IndexController::class, 'index'])->name('admin.index');
+
+    Route::prefix('products')->group(function () {
+        Route::get('/trash', [ProductController::class, 'trashedItems'])->name('products.trash');
+        Route::delete('/force_destroy/{id}', [ProductController::class, 'force_destroy'])->name('products.force_destroy');
+        Route::get('/restore/{id}', [ProductController::class, 'restore'])->name('products.restore');
+    });
+
+    Route::resource('products', ProductController::class);
 });
+
+Route::get('administrator/login', [AuthController::class, 'login'])->name('login');
+Route::get('administrator/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('administrator/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');
