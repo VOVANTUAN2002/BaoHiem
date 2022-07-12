@@ -23,12 +23,11 @@ return new class extends Migration
             $table->string('contract_package');
             $table->double('amount_of_money');
             $table->double('total');
-            $table->string('paid');
-            $table->string('unpaid_amount');
-            $table->string('insurance_start_date');
-            $table->string('insurance_start_date_payment');
-            $table->string('photo_contract');
-            $table->string('photo_CMND');
+            $table->text('paid_and_unpaid_amount');
+            $table->string('insurance_start_date')->nullable();
+            $table->string('insurance_start_date_payment')->nullable();
+            $table->string('photo_contract')->nullable();
+            $table->string('photo_CMND')->nullable();
             $table->timestamps();
         });
     }
