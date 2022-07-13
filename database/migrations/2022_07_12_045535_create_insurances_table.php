@@ -21,13 +21,15 @@ return new class extends Migration
             $table->string('email');
             $table->string('description');
             $table->string('contract_package');
-            $table->double('amount_of_money');
             $table->double('total');
-            $table->text('paid_and_unpaid_amount');
-            $table->string('insurance_start_date')->nullable();
-            $table->string('insurance_start_date_payment')->nullable();
+            $table->string('unit');
+            $table->string('paid_and_unpaid_amount');
+            $table->date('insurance_start_date')->nullable();
+            $table->date('insurance_open_date_Paid')->nullable();
+            $table->date('insurance_start_date_payment')->nullable();
             $table->string('photo_contract')->nullable();
             $table->string('photo_CMND')->nullable();
+            $table->text('linkYoutube')->nullable();
             $table->timestamps();
         });
     }

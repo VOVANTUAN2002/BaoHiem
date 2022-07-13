@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- End Required meta tags -->
     <!-- Begin SEO tag -->
-    <title> QuangGroup CRM </title>
+    <title>  </title>
     <meta property="og:title" content="Sign In">
     <meta name="author" content="Beni Arisandi">
     <meta property="og:locale" content="en_US">

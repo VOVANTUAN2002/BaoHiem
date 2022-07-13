@@ -12,8 +12,8 @@
         <div class="top-bar-brand">
             <!-- toggle aside menu -->
             <button class="hamburger hamburger-squeeze mr-2" type="button" data-toggle="aside-menu" aria-label="toggle aside menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button> <!-- /toggle aside menu -->
-            <a href="{{ route('admin.index') }}">
-                <img src="{{asset('admin/images/logo.png')}}" style="width: 79%;margin-left: 17px;">
+            <a href="">
+                <img src="" style="width: 79%;margin-left: 17px;">
             </a>
         </div><!-- /.top-bar-brand -->
         <!-- .top-bar-list -->
@@ -24,7 +24,7 @@
             </div><!-- /.top-bar-item -->
             <!-- .top-bar-item -->
             <div class="top-bar-item top-bar-item-full">
-                <form action="{{ route('products.index')}}" method="get" style="width: 100%;">
+                <form action="" method="get" style="width: 100%;">
                     <div class="input-group has-clearable">
                         <button type="button" class="close trigger-submit trigger-submit-delay" aria-label="Close">
                             <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
@@ -46,16 +46,16 @@
                 <div class="dropdown d-none d-md-flex">
                     <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="user-avatar user-avatar-md">
-                            <img src="{{asset($current_user->avatar)}}" alt="">
+                            <img src="" alt="">
                         </span>
                         <span class="account-summary pr-lg-4 d-none d-lg-block">
-                            <a href="{{ route('users.index',$current_user->id)}}" class="account-name">{{ $current_user->name}}</a>
-                            <span class="account-description">{{ $current_user->userGroup->name }}</span>
+                            <a href="" class="account-name"></a>
+                            <span class="account-description"></span>
                         </span>
                     </button>
                     <div class="dropdown-menu">
-                        <h6 class="dropdown-header d-none d-md-block d-lg-none"> {{ $current_user->name}} </h6>
-                        <a class="dropdown-item" href="{{route('users.update',$current_user->id)}}/edit">
+                        <h6 class="dropdown-header d-none d-md-block d-lg-none">  </h6>
+                        <a class="dropdown-item" href="">
                             <span class="dropdown-icon oi oi-person"></span>
                             Thông tin cá nhân
                         </a>

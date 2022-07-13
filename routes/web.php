@@ -16,20 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([
-    'prefix' => 'administrator',
-    'middleware' => ['auth']
-], function () {
+// Route::group([
+//     'prefix' => 'administrator',
+//     'middleware' => ['auth']
+// ], function () {
     Route::get('/', [IndexController::class, 'index'])->name('admin.index');
 
-    Route::prefix('products')->group(function () {
-        Route::get('/trash', [InsuranceController::class, 'trashedItems'])->name('products.trash');
-        Route::delete('/force_destroy/{id}', [InsuranceController::class, 'force_destroy'])->name('products.force_destroy');
-        Route::get('/restore/{id}', [InsuranceController::class, 'restore'])->name('products.restore');
-    });
+//     Route::prefix('insurances')->group(function () {
+//         Route::get('/trash', [InsuranceController::class, 'trashedItems'])->name('insurances.trash');
+//         Route::delete('/force_destroy/{id}', [InsuranceController::class, 'force_destroy'])->name('insurances.force_destroy');
+//         Route::get('/restore/{id}', [InsuranceController::class, 'restore'])->name('insurances.restore');
+//     });
 
-    Route::resource('products', InsuranceController::class);
-});
+    Route::resource('insurances', InsuranceController::class);
+// });
 
 Route::get('administrator/login', [AuthController::class, 'login'])->name('login');
 Route::get('administrator/logout', [AuthController::class, 'logout'])->name('logout');

@@ -30,103 +30,19 @@
               </li><!-- /.menu-item -->
               <li class="menu-header">Bán Hàng </li>
 
-              @if(Auth::user()->hasPermission('Product_viewAny'))
               <li class="menu-item">
-                <a href="{{ route('products.index') }}" class="menu-link">
+                <a href="" class="menu-link">
                   <span class="menu-icon oi oi-list-rich"></span>
-                  <span class="menu-text">Sản Phẩm</span>
+                  <span class="menu-text">Bảo Hiểm</span>
                 </a>
               </li>
-              @endif
-
-              @if(Auth::user()->hasPermission('ProductCategory_viewAny'))
-              <li class="menu-item">
-                <a href="{{ route('productCategories.index') }}" class="menu-link">
-                  <span class="menu-icon oi oi-puzzle-piece"></span>
-                  <span class="menu-text">Loại Sản Phẩm</span>
-                </a>
-              </li>
-              @endif
-
-              <li class="menu-header">Nguồn Lực</li>
-
-              @if(Auth::user()->hasPermission('User_viewAny'))
               <li class="menu-item has-child">
-                <a href="{{ route('users.index') }}" class="menu-link">
+                <a href="" class="menu-link">
                   <span class="menu-icon oi oi-person"></span>
                   <span class="menu-text">Nhân Viên</span>
                 </a>
               </li>
-              @endif
-
-              @if(Auth::user()->hasPermission('UserGroup_viewAny'))
-              <li class="menu-item">
-                <a href="{{ route('userGroups.index') }}" class="menu-link">
-                  <span class="menu-icon oi oi-people"></span>
-                  <span class="menu-text">Nhóm Nhân Viên</span>
-                </a>
-              </li>
-              @endif
-
-              @if(Auth::user()->hasPermission('Branch_viewAny'))
-              <li class="menu-item">
-                <a href="{{ route('branches.index') }}" class="menu-link">
-                  <span class="menu-icon fas fa-rocket"></span>
-                  <span class="menu-text">Chi Nhánh</span>
-                </a>
-              </li>
-              @endif
-
-              @if(Auth::user()->hasPermission('Customer_viewAny'))
-              <li class="menu-item">
-                <a href="{{ route('customers.index') }}" class="menu-link">
-                  <span class="menu-icon oi oi-aperture"></span>
-                  <span class="menu-text">Khách Hàng</span>
-                </a>
-              </li>
-              @endif
-
-              @if(Auth::user()->hasPermission('Message_viewAny'))
-              <li class="menu-item">
-                <a href="{{ route('messages.index') }}" class="menu-link">
-                  <span class="menu-icon fas fa-comment-alt"></span>
-                  <span class="menu-text">Tin Nhắn</span>
-                </a>
-              </li>
-              @endif
-
-              @if(Auth::user()->hasPermission('Paper_viewAny'))
-              <li class="menu-item">
-                <a href="{{ route('papers.index') }}" class="menu-link">
-                  <span class="menu-icon fas fa-paste"></span>
-                  <span class="menu-text">Giấy Tờ</span>
-                </a>
-              </li>
-              @endif
-              <li class="menu-header">Hệ Thống</li>
-
-              @if(Auth::user()->hasPermission('Config_viewAny'))
-              <li class="menu-item">
-                <a href="{{ route('configs.index') }}" class="menu-link">
-                  <span class="menu-icon fa fa-cog"></span>
-                  <span class="menu-text">Cấu Hình</span>
-                </a>
-              </li>
-              @endif
-
-              @if(Auth::user()->hasPermission('Systemlog_viewAny'))
-              <li class="menu-item">
-                <a href="{{ route('systemlogs.index') }}" class="menu-link">
-                  <span class="menu-icon fa fa-book"></span>
-                  <span class="menu-text">Nhật Ký Hoạt Động</span>
-                </a>
-              </li>
-              @endif
-
-
-
               <!-- .menu-item -->
-
             </ul><!-- /.menu -->
           </nav><!-- /.stacked-menu -->
         </div><!-- /.aside-menu -->
