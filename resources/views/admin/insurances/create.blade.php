@@ -183,20 +183,8 @@
                 <div class="card-body border-top">
                     <legend>Hình ảnh & Video</legend>
                     <div class="form-group">
-                        <label><b>Chọn hình ảnh Hợp Đồng nếu có</b></label>
-                        <input type="file" name="photo_contract" class="form-control" value="{{ old('photo_contract') }}" multiple>
-                    </div>
-                    <div class="form-group">
-                        <label for="tf1">Thêm video từ Youtube</label>
-                        <input name="linkYoutube" type="text" class="form-control" placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug" value="{{ old('linkYoutube') }}">
-                        @if ($errors->any())
-                        <p style="color:red">{{ $errors->first('linkYoutube') }}</p>
-                        @endif
-                    </div>
-                    <label><b>Chọn hình ảnh CMND nếu có</b></label>
-                    <div class="form-group">
-                        <label>Chọn hình ảnh CMND khách hàng</label>
-                        <input type="file" name="photo_CMND" class="form-control" value="{{ old('photo_CMND') }}" multiple>
+                        <label>Chọn hình ảnh Hợp Đồnghoặc CMND khách hàng</label>
+                        <input type="file" name="photo_CMND_photo_contract[]" class="form-control" value="{{ old('image_urls[]') }}" multiple>
                     </div>
                     <div class="form-group">
                         <label for="tf1">Thêm video từ Youtube</label>
