@@ -187,52 +187,28 @@
                         <label><b>Chọn hình ảnh Hợp Đồng nếu có</b></label>
                         <input type="file" name="photo_contract" class="form-control" value="{{ $insurance->photo_contract }}" multiple>
                     </div>
-                    @foreach( $insurances as $insurance )
+                    @if( $insurance->insurance_images )
                     <div class="form-group row gallery">
-                        <div class="col-lg-2 {{ $insurance->id }}">
+                        @foreach( $insurance->insurance_images as $insurance_image )
+                        <div class="col-lg-2 insurance_image_{{ $insurance_image->id }}">
                             <div class="card card-figure">
                                 <figure class="figure">
                                     <div class="figure-img">
-                                        <img class="img-fluid" src="{{ $insurance->photo_contract }}">
-                                        <a href="{{ $insurance->photo_contract }}" class="img-link img-fluid-a" data-size="600x450">
+                                        <img class="img-fluid" src="{{ $insurance_image->photo_CMND_photo_contract }}">
+                                        <a href="{{ $insurance_image->photo_CMND_photo_contract }}" class="img-link img-fluid-a" data-size="600x450">
                                             <span class="tile tile-circle bg-danger"><span class="oi oi-eye"></span></span>
                                             <span class="img-caption d-none">Image caption goes here</span>
                                         </a>
+                                        <div class="figure-action frmDeleteProduct">
+                                            <a href="javascript:;" data-id="{{ $insurance_image->id }}" class="btn btn-block btn-sm btn-primary btn-delete">Xóa</a>
+                                        </div>
                                     </div>
                                 </figure>
                             </div>
                         </div>
+                        @endforeach
                     </div>
-                    @endforeach
-                    <div class="form-group">
-                        <label for="tf1">Thêm video từ Youtube</label>
-                        <input name="linkYoutube" type="text" class="form-control" placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug" value="{{ $insurance->linkYoutube }}">
-                        @if ($errors->any())
-                        <p style="color:red">{{ $errors->first('linkYoutube') }}</p>
-                        @endif
-                    </div>
-                    <label><b>Chọn hình ảnh CMND nếu có</b></label>
-                    <div class="form-group">
-                        <label>Chọn hình ảnh CMND khách hàng</label>
-                        <input type="file" name="photo_CMND" class="form-control" value="{{ $insurance->photo_CMND }}" multiple>
-                    </div>
-                    @foreach( $insurances as $insurance )
-                    <div class="form-group row gallery">
-                        <div class="col-lg-2 {{ $insurance->id }}">
-                            <div class="card card-figure">
-                                <figure class="figure">
-                                    <div class="figure-img">
-                                        <img class="img-fluid" src="{{ $insurance->photo_CMND }}">
-                                        <a href="{{ $insurance->photo_CMND }}" class="img-link img-fluid-a" data-size="600x450">
-                                            <span class="tile tile-circle bg-danger"><span class="oi oi-eye"></span></span>
-                                            <span class="img-caption d-none">Image caption goes here</span>
-                                        </a>
-                                    </div>
-                                </figure>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
+                    @endif
                     <div class="form-group">
                         <label for="tf1">Thêm video từ Youtube</label>
                         <input name="linkYoutube" type="text" class="form-control" placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug" value="{{ $insurance->linkYoutube }}">
@@ -251,6 +227,23 @@
     </form>
 </div>
 <script>
+    jQuery(document).ready(function() {
+        $(".btn-delete").click(function() {
+            var confirm_delete = confirm("Xác nhận xóa hình ?");
+            if (confirm_delete === true) {
+                var product_image_id = $(this).attr('data-id');
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/insurance_images/' + insurance_image_id,
+                    dataType: 'json',
+                    success: function(data) {
+                        $(".insurance_image_" + insurance_image_id).remove();
+                    }
+                });
+            }
+        });
+    });
+
     var app_odds = new Vue({
         el: '#insurance-app',
         data: {

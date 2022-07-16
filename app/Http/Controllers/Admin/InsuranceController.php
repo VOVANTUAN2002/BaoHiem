@@ -171,18 +171,35 @@ class InsuranceController extends Controller
         $insurance->linkYoutube = $request->linkYoutube;
         $insurance->unit = $request->unit;
 
-        if ($request->hasFile('photo_contract')) {
-            $photo_contract = $request->file('photo_contract');
-            $storedPath = $photo_contract->move('uploadContract', $photo_contract->getClientOriginalName());
-            $insurance->photo_contract           = 'uploadContract/' . $photo_contract->getClientOriginalName();
+        $insurance_images = [];
+        if ($request->hasFile('photo_CMND_photo_contract')) {
+            $photo_CMND_photo_contract                  = $request->photo_CMND_photo_contract;
+            foreach ($photo_CMND_photo_contract as $key => $image) {
+                //tạo file upload trong public để chạy ảnh
+                $path               = 'upload';
+                $get_name_image     = $image->getClientOriginalName(); //abc.jpg
+                //explode "." [abc,jpg]
+                $name_image         = current(explode('.', $get_name_image));
+                //trả về phần tử thứ 1 của mản -> abc
+                //getClientOriginalExtension: tra ve  đuôi ảnh
+                $new_image          = $name_image . rand(0, 99) . '.' . $image->getClientOriginalExtension();
+                //abc nối số ngẫu nhiên từ 0-99, nối "." ->đuôi file jpg
+                $image->move($path, $new_image); //chuyển file ảnh tới thư mục
+                $insurance_images[] = '/upload/' . $new_image;
+            }
         }
-        if ($request->hasFile('photo_CMND')) {
-            $photo_CMND = $request->file('photo_CMND');
-            $storedPath = $photo_CMND->move('uploadCMND', $photo_CMND->getClientOriginalName());
-            $insurance->photo_CMND           = 'uploadCMND/' . $photo_CMND->getClientOriginalName();
-        }
+
         try {
             $insurance->save();
+            if (count($insurance_images)) {
+                foreach ($insurance_images as $insurance_image) {
+                    $InsuranceImage = new Image();
+                    $InsuranceImage->Insurance_id = $insurance->id;
+                    $InsuranceImage->photo_CMND_photo_contract = $insurance_image;
+                    // dd($InsuranceImage);
+                    $InsuranceImage->save();
+                }
+            }
             Session::flash('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
