@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\InsuranceController;
+use App\Http\Controllers\Admin\UserGroupController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 //     'prefix' => 'administrator',
 //     'middleware' => ['auth']
 // ], function () {
-    Route::get('/', [IndexController::class, 'index'])->name('admin.index');
+Route::get('/', [IndexController::class, 'index'])->name('admin.index');
 
 //     Route::prefix('insurances')->group(function () {
 //         Route::get('/trash', [InsuranceController::class, 'trashedItems'])->name('insurances.trash');
@@ -28,7 +29,15 @@ use Illuminate\Support\Facades\Route;
 //         Route::get('/restore/{id}', [InsuranceController::class, 'restore'])->name('insurances.restore');
 //     });
 
-    Route::resource('insurances', InsuranceController::class);
+
+Route::prefix('userGroups')->group(function () {
+    Route::get('/trash', [UserGroupController::class, 'trashedItems'])->name('userGroups.trash');
+    Route::delete('/force_destroy/{id}', [UserGroupController::class, 'force_destroy'])->name('userGroups.force_destroy');
+    Route::get('/restore/{id}', [UserGroupController::class, 'restore'])->name('userGroups.restore');
+});
+Route::resource('userGroups', UserGroupController::class);
+
+Route::resource('insurances', InsuranceController::class);
 // });
 
 Route::get('administrator/login', [AuthController::class, 'login'])->name('login');
