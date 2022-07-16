@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('user_group_roles', function (Blueprint $table) {
             $table->id();
-
             $table->unsignedBigInteger('user_group_id');
             $table->foreign('user_group_id')->references('id')->on('user_groups');
 
