@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInsuranceRequest;
+use App\Http\Requests\UpdateInsuranceRequest;
 use App\Models\Image;
 use App\Models\Insurance;
 use Carbon\Carbon;
@@ -153,7 +154,7 @@ class InsuranceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateInsuranceRequest $request, $id)
     {
         $insurance = Insurance::find($id);
         $insurance->contract = $request->contract;
@@ -216,6 +217,14 @@ class InsuranceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $insurance = Insurance::find($id);
+        // $this->authorize('delete', $insurance);
+        try {
+            $insurance->delete();
+            return redirect()->route('insurances.index')->with('success', 'Xóa thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('insurances.index')->with('error', 'Xóa không thành công');
+        }
     }
 }

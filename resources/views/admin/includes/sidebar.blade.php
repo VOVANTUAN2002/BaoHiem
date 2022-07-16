@@ -23,7 +23,7 @@
             <ul class="menu">
               <!-- .menu-item -->
               <li class="menu-item">
-                <a href="{{route('admin.index')}}" class="menu-link">
+                <a href="{{route('insurances.index')}}" class="menu-link">
                   <span class="menu-icon fas fa-home"></span>
                   <span class="menu-text">Trang Chủ</span>
                 </a>
