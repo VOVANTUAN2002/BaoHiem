@@ -155,7 +155,7 @@ class InsuranceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $insurance = new Insurance();
+        $insurance = Insurance::find($id);
         $insurance->contract = $request->contract;
         $insurance->name = $request->name;
         $insurance->phone = $request->phone;

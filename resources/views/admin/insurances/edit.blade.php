@@ -184,11 +184,11 @@
                 <div class="card-body border-top">
                     <legend>Hình ảnh & Video</legend>
                     <div class="form-group">
-                        <label><b>Chọn hình ảnh Hợp Đồng nếu có</b></label>
-                        <input type="file" name="photo_contract" class="form-control" value="{{ $insurance->photo_contract }}" multiple>
+                        <label>Chọn nhiều hình ảnh</label>
+                        <input type="file" href="javascript:void(0);" name="photo_CMND_photo_contract[]" class="form-control" value="{{ old('image_urls[]') }}" multiple>
                     </div>
                     @if( $insurance->insurance_images )
-                    <div class="form-group row gallery">
+                    <div class="form-group row">
                         @foreach( $insurance->insurance_images as $insurance_image )
                         <div class="col-lg-2 insurance_image_{{ $insurance_image->id }}">
                             <div class="card card-figure">
@@ -199,7 +199,7 @@
                                             <span class="tile tile-circle bg-danger"><span class="oi oi-eye"></span></span>
                                             <span class="img-caption d-none">Image caption goes here</span>
                                         </a>
-                                        <div class="figure-action frmDeleteProduct">
+                                        <div class="figure-action">
                                             <a href="javascript:;" data-id="{{ $insurance_image->id }}" class="btn btn-block btn-sm btn-primary btn-delete">Xóa</a>
                                         </div>
                                     </div>
@@ -231,11 +231,11 @@
         $(".btn-delete").click(function() {
             var confirm_delete = confirm("Xác nhận xóa hình ?");
             if (confirm_delete === true) {
-                var product_image_id = $(this).attr('data-id');
+                var insurance_image_id = $(this).attr('data-id');
                 $.ajax({
-                    type: 'DELETE',
-                    url: '/api/insurance_images/' + insurance_image_id,
-                    dataType: 'json',
+                    // type: 'DELETE',
+                    // url: '/api/insurance_images/' + insurance_image_id,
+                    // dataType: 'json',
                     success: function(data) {
                         $(".insurance_image_" + insurance_image_id).remove();
                     }
