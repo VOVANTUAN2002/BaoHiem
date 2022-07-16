@@ -21,7 +21,7 @@ class UserGroupController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny',UserGroup::class);
+        // $this->authorize('viewAny',UserGroup::class);
         $query = UserGroup::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
@@ -48,7 +48,7 @@ class UserGroupController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', UserGroup::class);
+        // $this->authorize('create', UserGroup::class);
 
         return view('admin.userGroups.add');
     }
@@ -93,7 +93,7 @@ class UserGroupController extends Controller
     public function edit($id)
     {
         $userGroup = UserGroup::find($id);
-        $this->authorize('update',  $userGroup);
+        // $this->authorize('update',  $userGroup);
         $current_user = Auth::user();
         $userRoles = $userGroup->roles->pluck('id', 'name')->toArray();
         // dd($current_user->userGroup->roles->toArray());
@@ -148,7 +148,7 @@ class UserGroupController extends Controller
     {
 
         $userGroup = UserGroup::find($id);
-        $this->authorize('delete', $userGroup);
+        // $this->authorize('delete', $userGroup);
 
 
         try {
@@ -192,7 +192,7 @@ class UserGroupController extends Controller
     public function restore($id)
     {
         $userGroup = UserGroup::withTrashed()->find($id);
-        $this->authorize('restore', $userGroup);
+        // $this->authorize('restore', $userGroup);
 
         
         try {

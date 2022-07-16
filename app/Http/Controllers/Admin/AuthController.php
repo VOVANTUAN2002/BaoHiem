@@ -22,19 +22,16 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
-    public function postLogin(LoginRequest $request)
+    public function postLogin(Request $request)
     {
-        $email = $request->email;
-        $password = $request->password;
-
-        $checkUserByEmail = User::where('email', $email)->take(1)->first();
-        dd($checkUserByEmail);
-        if ($checkUserByEmail && Hash::check($request->password, $checkUserByEmail->password)) {
-            Auth::login($checkUserByEmail);
+        // dd($request);
+        $data = $request->only('email', 'password');
+        // dd($data);
+        // dd(Hash::make(123456789));
+        if (Auth::attempt($data)) {
             return redirect()->route('admin.index');
         } else {
-            Session::flash('error_email', 'Đăng nhập không thành công');
-            return redirect()->back();
+            return false;
         }
     }
 }

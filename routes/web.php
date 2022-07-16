@@ -17,28 +17,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::group([
-//     'prefix' => 'administrator',
-//     'middleware' => ['auth']
-// ], function () {
-Route::get('/', [IndexController::class, 'index'])->name('admin.index');
+Route::group([
+    'prefix' => 'administrator',
+    'middleware' => ['auth']
+], function () {
+    Route::get('/', [IndexController::class, 'index'])->name('admin.index');
 
-//     Route::prefix('insurances')->group(function () {
-//         Route::get('/trash', [InsuranceController::class, 'trashedItems'])->name('insurances.trash');
-//         Route::delete('/force_destroy/{id}', [InsuranceController::class, 'force_destroy'])->name('insurances.force_destroy');
-//         Route::get('/restore/{id}', [InsuranceController::class, 'restore'])->name('insurances.restore');
-//     });
+    //     Route::prefix('insurances')->group(function () {
+    //         Route::get('/trash', [InsuranceController::class, 'trashedItems'])->name('insurances.trash');
+    //         Route::delete('/force_destroy/{id}', [InsuranceController::class, 'force_destroy'])->name('insurances.force_destroy');
+    //         Route::get('/restore/{id}', [InsuranceController::class, 'restore'])->name('insurances.restore');
+    //     });
 
 
-Route::prefix('userGroups')->group(function () {
-    Route::get('/trash', [UserGroupController::class, 'trashedItems'])->name('userGroups.trash');
-    Route::delete('/force_destroy/{id}', [UserGroupController::class, 'force_destroy'])->name('userGroups.force_destroy');
-    Route::get('/restore/{id}', [UserGroupController::class, 'restore'])->name('userGroups.restore');
+    Route::prefix('userGroups')->group(function () {
+        Route::get('/trash', [UserGroupController::class, 'trashedItems'])->name('userGroups.trash');
+        Route::delete('/force_destroy/{id}', [UserGroupController::class, 'force_destroy'])->name('userGroups.force_destroy');
+        Route::get('/restore/{id}', [UserGroupController::class, 'restore'])->name('userGroups.restore');
+    });
+    Route::resource('userGroups', UserGroupController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('insurances', InsuranceController::class);
 });
-Route::resource('userGroups', UserGroupController::class);
-Route::resource('users', UserController::class);
-Route::resource('insurances', InsuranceController::class);
-// });
 
 Route::get('administrator/login', [AuthController::class, 'login'])->name('login');
 Route::get('administrator/logout', [AuthController::class, 'logout'])->name('logout');

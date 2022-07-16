@@ -8,13 +8,13 @@
     <div class="alert alert-danger">{{session::get('success')}}</div>
     @endif
     <div class="form-label-group">
-      <input type="text" id="inputUser" class="form-control" name="phone" value="{{old('phone')}}" placeholder="Số điện thoại" autofocus=""> <label for="inputUser">Số điện thoại</label>
-      @if (Session::has('error_phone'))
-      <div class="alert alert-danger">{{session::get('error_phone')}}</div>
+      <input type="text" id="inputUser" class="form-control" name="email" value="{{old('email')}}" placeholder="Số điện thoại" autofocus=""> <label for="inputUser">Số điện thoại</label>
+      @if (Session::has('error_email'))
+      <div class="alert alert-danger">{{session::get('error_email')}}</div>
       @endif
       <div class="error-message">
         @if ($errors->any())
-        <p style="color:red">{{ $errors->first('phone') }}</p>
+        <p style="color:red">{{ $errors->first('email') }}</p>
         @endif
       </div>
     </div>

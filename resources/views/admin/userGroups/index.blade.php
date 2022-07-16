@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <header class="page-title-bar">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -15,12 +14,12 @@
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto"> Quản Lý Nhóm Nhân Viên</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">
-        @if(Auth::user()->hasPermission('UserGroup_create'))
+            @if(Auth::user()->hasPermission('UserGroup_create'))
             <a href="{{ route('userGroups.create') }}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
-        @endif
+            @endif
         </div>
     </div>
 </header>
@@ -75,7 +74,6 @@
                         <tr>
                             <th> # </th>
                             <th> Tên nhóm</th>
-                            <th> Miêu tả nhóm </th>
                             <th> Chức năng </th>
                         </tr>
                     </thead>
@@ -84,18 +82,17 @@
                         <tr>
                             <td class="align-middle"> {{ $userGroup->id }} </td>
                             <td class="align-middle"> {{ $userGroup->name }} </td>
-                            <td class="align-middle"> {{ $userGroup->description }} </td>
                             <td>
-                            @if(Auth::user()->hasPermission('UserGroup_delete'))
+                                @if(Auth::user()->hasPermission('UserGroup_delete'))
                                 <form action="{{ route('userGroups.destroy',$userGroup->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa {{$userGroup->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
-                            @endif
-                            @if(Auth::user()->hasPermission('UserGroup_update'))
+                                @endif
+                                @if(Auth::user()->hasPermission('UserGroup_update'))
                                 <span class="sr-only">Edit</span></a> <a href="{{route('userGroups.edit',$userGroup->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
-                           @endif
+                                @endif
                             </td>
                         </tr><!-- /tr -->
                         @endforeach
