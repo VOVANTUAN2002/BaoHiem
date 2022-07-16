@@ -72,7 +72,21 @@
                         @foreach ($insurances as $insurance)
                         <tr>
                             <td class="align-middle"> {{ $insurance->name }}</td>
-                            <td class="align-middle"> {{ $insurance->contract_package }}</td>
+                            @if( $insurance->contract_package == 'Term_life_insurance')
+                            <td class="align-middle" value="Term_life_insurance">Bảo hiểm sinh kỳ</td>
+                            @endif
+                            @if( $insurance->contract_package == 'Term_insurance')
+                            <td class="align-middle" value="Term_insurance">Bảo hiểm tử kỳ</td>
+                            @endif
+                            @if( $insurance->contract_package == 'Mixed_insurance')
+                            <td class="align-middle" value="Mixed_insurance">Bảo hiểm hỗn hợp</td>
+                            @endif
+                            @if( $insurance->contract_package == 'Periodic_payment_insurance')
+                            <td class="align-middle" value="Periodic_payment_insurance">Bảo hiểm trả tiền định kỳ</td>
+                            @endif
+                            @if( $insurance->contract_package == 'Lifetime_insurance')
+                            <td class="align-middle" value="Lifetime_insurance">Bảo hiểm trọn đời</td>
+                            @endif
                             <td class="align-middle"> {{number_format($insurance->total)}} {{ $insurance->unit }}</td>
                             <td>
                                 <a href="{{route('insurances.edit',$insurance->id)}}" title="Edit Student">

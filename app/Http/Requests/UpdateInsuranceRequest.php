@@ -13,7 +13,7 @@ class UpdateInsuranceRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,22 @@ class UpdateInsuranceRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'contract' => 'required',
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'description' => 'required',
+            'contract_package' => 'required',
+            'total' => 'required',
+            'unit' => 'required',
+            'paid_and_unpaid_amount' => 'required',
         ];
+    }
+    public function messages()
+    {
+        $messages = [
+            'required' => 'Trường này là bắt buộc',
+        ];
+        return $messages;
     }
 }

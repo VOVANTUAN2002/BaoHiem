@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreInsuranceRequest;
 use App\Models\Insurance;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -58,7 +59,7 @@ class InsuranceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreInsuranceRequest $request)
     {
         $insurance = new Insurance();
         $insurance->contract = $request->contract;
@@ -73,28 +74,27 @@ class InsuranceController extends Controller
         $insurance->insurance_start_date = $request->insurance_start_date;
         $insurance->insurance_open_date_Paid = $request->insurance_open_date_Paid;
         $insurance->insurance_start_date_payment = $request->insurance_start_date_payment;
-        $insurance->photo_contract = $request->photo_contract;
-        $insurance->photo_CMND = $request->photo_CMND;
         $insurance->linkYoutube = $request->linkYoutube;
         $insurance->unit = $request->unit;
 
-        if ($request->hasFile('avatar')) {
-            $photo_contract = $request->file('avatar');
+        if ($request->hasFile('photo_contract')) {
+            $photo_contract = $request->file('photo_contract');
             $storedPath = $photo_contract->move('avatars', $photo_contract->getClientOriginalName());
-            $insurance->photo_contract           = 'avatars/' . $photo_contract->getClientOriginalName();
+            $insurance->photo_contract           = 'uploadContract/' . $photo_contract->getClientOriginalName();
+        }
+        if ($request->hasFile('photo_CMND')) {
+            $photo_CMND = $request->file('photo_CMND');
+            $storedPath = $photo_CMND->move('avatars', $photo_CMND->getClientOriginalName());
+            $insurance->photo_CMND           = 'uploadCMND/' . $photo_CMND->getClientOriginalName();
         }
 
-        if ($request->hasFile('avatar')) {
-            $photo_CMND = $request->file('avatar');
-            $storedPath = $photo_CMND->move('avatars', $photo_CMND->getClientOriginalName());
-            $insurance->photo_CMND           = 'avatars/' . $photo_CMND->getClientOriginalName();
-        }
         try {
             $insurance->save();
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             Session::flash('error', 'Thêm ' . $request->name  .  ' không thành công');
+            return back();
         }
         return redirect()->route('insurances.index');
     }
@@ -116,7 +116,26 @@ class InsuranceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($id)
+    {
+        $insurance = Insurance::find($id);
+        $insurances = Insurance::all();
+        // $this->authorize('update', $product);
+        $params = [
+            'insurance' => $insurance,
+            'insurances' => $insurances
+        ];
+        return view('admin.insurances.edit', $params);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
         $insurance = new Insurance();
         $insurance->contract = $request->contract;
@@ -131,42 +150,27 @@ class InsuranceController extends Controller
         $insurance->insurance_start_date = $request->insurance_start_date;
         $insurance->insurance_open_date_Paid = $request->insurance_open_date_Paid;
         $insurance->insurance_start_date_payment = $request->insurance_start_date_payment;
-        $insurance->photo_contract = $request->photo_contract;
-        $insurance->photo_CMND = $request->photo_CMND;
         $insurance->linkYoutube = $request->linkYoutube;
         $insurance->unit = $request->unit;
 
-        if ($request->hasFile('avatar')) {
-            $photo_contract = $request->file('avatar');
-            $storedPath = $photo_contract->move('avatars', $photo_contract->getClientOriginalName());
-            $insurance->photo_contract           = 'avatars/' . $photo_contract->getClientOriginalName();
+        if ($request->hasFile('photo_contract')) {
+            $photo_contract = $request->file('photo_contract');
+            $storedPath = $photo_contract->move('uploadContract', $photo_contract->getClientOriginalName());
+            $insurance->photo_contract           = 'uploadContract/' . $photo_contract->getClientOriginalName();
         }
-
-        if ($request->hasFile('avatar')) {
-            $photo_CMND = $request->file('avatar');
-            $storedPath = $photo_CMND->move('avatars', $photo_CMND->getClientOriginalName());
-            $insurance->photo_CMND           = 'avatars/' . $photo_CMND->getClientOriginalName();
+        if ($request->hasFile('photo_CMND')) {
+            $photo_CMND = $request->file('photo_CMND');
+            $storedPath = $photo_CMND->move('uploadCMND', $photo_CMND->getClientOriginalName());
+            $insurance->photo_CMND           = 'uploadCMND/' . $photo_CMND->getClientOriginalName();
         }
         try {
             $insurance->save();
-            Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
+            Session::flash('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            Session::flash('error', 'Thêm ' . $request->name  .  ' không thành công');
+            Session::flash('error', 'Sửa ' . $request->name  .  ' không thành công');
         }
         return redirect()->route('insurances.index');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

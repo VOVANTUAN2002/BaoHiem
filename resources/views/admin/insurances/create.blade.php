@@ -11,7 +11,12 @@
     </nav>
     <h1 class="page-title"></h1>
 </header>
-
+@if (Session::has('success'))
+<div class="alert alert-success mt-1">{{session::get('success')}}</div>
+@endif
+@if (Session::has('error'))
+<div class="alert alert-danger mt-1">{{session::get('error')}}</div>
+@endif
 <div class="page-section">
     <form id="insurance-app" method="post" action="{{route('insurances.store')}}" enctype="multipart/form-data">
         @csrf
@@ -59,6 +64,9 @@
                 <div class="form-group">
                     <label for="tf1">Địa chỉ khách hàng <abbr title="Trường bắt buộc">*</abbr></label>
                     <textarea id="summernote" data-toggle="summernote" name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... ">{{ old('description') }}</textarea>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('description') }}</p>
+                    @endif
                 </div>
                 <div class="card-body border-top">
                     <legend>Chi tiết Bảo Hiểm</legend>
@@ -152,7 +160,7 @@
                             <label class="custom-control-label" for="rd1">Bảo hiểm sinh kỳ</label>
                         </div>
                         <div class="custom-control custom-control-inline custom-radio">
-                            <input type="radio" class="custom-control-input" name="contract_package" id="rd2" @checked( old('contract_package')=='Term_life_insurance' ) value="Term_life_insurance">
+                            <input type="radio" class="custom-control-input" name="contract_package" id="rd2" @checked( old('contract_package')=='Term_insurance' ) value="Term_life_insurance">
                             <label class="custom-control-label" for="rd2">Bảo hiểm tử kỳ</label>
                         </div>
                         <div class="custom-control custom-control-inline custom-radio">
