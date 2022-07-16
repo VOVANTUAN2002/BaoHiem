@@ -104,7 +104,7 @@ class InsuranceController extends Controller
                     $InsuranceImage = new Image();
                     $InsuranceImage->Insurance_id = $insurance->id;
                     $InsuranceImage->photo_CMND_photo_contract = $insurance_image;
-                    dd($InsuranceImage);
+                    // dd($InsuranceImage);
                     $InsuranceImage->save();
                 }
             }
