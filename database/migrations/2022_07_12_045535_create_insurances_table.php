@@ -27,7 +27,7 @@ return new class extends Migration
             $table->date('insurance_start_date')->nullable();
             $table->date('insurance_open_date_Paid')->nullable();
             $table->date('insurance_start_date_payment')->nullable();
-            $table->string('photo_contract')->nullable();
+            $table->text('linkYoutube')->nullable();
             $table->timestamps();
         });
     }

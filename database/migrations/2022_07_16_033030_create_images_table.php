@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('Insurance_id');
             $table->foreign('Insurance_id')->references('id')->on('insurances');
             $table->string('photo_CMND')->nullable();
-            $table->text('linkYoutube')->nullable();
+            $table->string('photo_contract')->nullable();
             $table->timestamps();
         });
     }

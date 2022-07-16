@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInsuranceRequest;
+use App\Models\Image;
 use App\Models\Insurance;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -77,6 +78,7 @@ class InsuranceController extends Controller
         $insurance->linkYoutube = $request->linkYoutube;
         $insurance->unit = $request->unit;
 
+
         if ($request->hasFile('photo_contract')) {
             $photo_contract = $request->file('photo_contract');
             $storedPath = $photo_contract->move('avatars', $photo_contract->getClientOriginalName());
@@ -90,6 +92,15 @@ class InsuranceController extends Controller
 
         try {
             $insurance->save();
+            if (count($photo_contract)) {
+                foreach ($photo_contract as $insurance_image) {
+                    $InsuranceImage = new Image();
+                    $InsuranceImage->Insurance_id = $insurance->id;
+                    $InsuranceImage->photo_CMND = $insurance_image;
+                    $InsuranceImage->photo_contract = $insurance_image;
+                    $InsuranceImage->save();
+                }
+            }
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
