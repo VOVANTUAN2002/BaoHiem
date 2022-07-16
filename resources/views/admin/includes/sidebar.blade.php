@@ -31,15 +31,21 @@
               <li class="menu-header">Bán Hàng </li>
 
               <li class="menu-item">
-                <a href="" class="menu-link">
+                <a href="{{route('insurances.index')}}" class="menu-link">
                   <span class="menu-icon oi oi-list-rich"></span>
                   <span class="menu-text">Bảo Hiểm</span>
                 </a>
               </li>
               <li class="menu-item has-child">
-                <a href="" class="menu-link">
+                <a href="{{route('users.index')}}" class="menu-link">
                   <span class="menu-icon oi oi-person"></span>
                   <span class="menu-text">Nhân Viên</span>
+                </a>
+              </li>
+              <li class="menu-item has-child">
+                <a href="{{route('userGroups.index')}}" class="menu-link">
+                  <span class="menu-icon oi oi-person"></span>
+                  <span class="menu-text">Nhóm Nhân Viên</span>
                 </a>
               </li>
               <!-- .menu-item -->

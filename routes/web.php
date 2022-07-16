@@ -36,7 +36,7 @@ Route::prefix('userGroups')->group(function () {
     Route::get('/restore/{id}', [UserGroupController::class, 'restore'])->name('userGroups.restore');
 });
 Route::resource('userGroups', UserGroupController::class);
-
+Route::resource('users', UserController::class);
 Route::resource('insurances', InsuranceController::class);
 // });
 
