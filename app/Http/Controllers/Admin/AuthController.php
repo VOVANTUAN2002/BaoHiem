@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -21,6 +22,7 @@ class AuthController extends Controller
     {
         // Kiểm tra dữ liệu vào
         $allRequest  = $request->all();
+        dd($allRequest);
         $validator = $this->validator($allRequest);
 
         if ($validator->fails()) {
@@ -40,10 +42,34 @@ class AuthController extends Controller
         }
     }
 
+    protected function validator(array $data)
+    {
+        return Validator::make(
+            $data,
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6|confirmed',
+            ],
+            [
+                'name.required' => 'Họ và tên là trường bắt buộc',
+                'name.max' => 'Họ và tên không quá 255 ký tự',
+                'email.required' => 'Email là trường bắt buộc',
+                'email.email' => 'Email không đúng định dạng',
+                'email.max' => 'Email không quá 255 ký tự',
+                'email.unique' => 'Email đã tồn tại',
+                'password.required' => 'Mật khẩu là trường bắt buộc',
+                'password.min' => 'Mật khẩu phải chứa ít nhất 8 ký tự',
+                'password.confirmed' => 'Xác nhận mật khẩu không đúng',
+            ]
+        );
+    }
+
     public function login()
     {
         return view('admin.auth.login');
     }
+    
     public function logout()
     {
         Auth::logout();
