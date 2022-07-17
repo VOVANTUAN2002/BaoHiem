@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('day_of_birth')->nullable();
             $table->string('address');
             $table->string('password');
+            $table->string('password_confirmation');
             $table->string('avatar');
             $table->string('phone')->unique();
             $table->string('email')->nullable();

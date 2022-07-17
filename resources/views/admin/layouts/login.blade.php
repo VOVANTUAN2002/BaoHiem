@@ -51,7 +51,7 @@
                 <img src="/mobile/assets/img/logo.png"  alt="">
                 <span class="sr-only">Đăng Nhập Hệ Thống</span>
             </h1>
-            <p>Vui lòng đăng nhập vào hệ thống !</p>
+            <p>Vui lòng đăng nhập,đăng ký vào hệ thống !</p>
         </header><!-- form -->
 
 

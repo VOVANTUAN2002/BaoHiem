@@ -39,7 +39,10 @@ Route::group([
     Route::resource('users', UserController::class);
     Route::resource('insurances', InsuranceController::class);
 });
-
+// Đăng ký thành viên
+Route::get('administrator/register', [AuthController::class, 'getRegister'])->name('register');
+Route::post('administrator/register', [AuthController::class, 'postRegister'])->name('register');
+// Đăng nhập và xử lý đăng nhập
 Route::get('administrator/login', [AuthController::class, 'login'])->name('login');
 Route::get('administrator/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('administrator/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');

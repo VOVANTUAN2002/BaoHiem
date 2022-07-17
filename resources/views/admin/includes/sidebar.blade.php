@@ -42,12 +42,14 @@
                   <span class="menu-text">Nhân Viên</span>
                 </a>
               </li>
+              @if(Auth::user()->hasPermission('UserGroup_viewAny'))
               <li class="menu-item has-child">
                 <a href="{{route('userGroups.index')}}" class="menu-link">
                   <span class="menu-icon oi oi-person"></span>
                   <span class="menu-text">Nhóm Nhân Viên</span>
                 </a>
               </li>
+              @endif
               <!-- .menu-item -->
             </ul><!-- /.menu -->
           </nav><!-- /.stacked-menu -->
