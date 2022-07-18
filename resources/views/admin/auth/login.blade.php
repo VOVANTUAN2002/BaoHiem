@@ -5,10 +5,10 @@
   <!-- .form-group -->
   <div class="form-group">
     @if (Session::has('success'))
-    <div class="alert alert-danger">{{session::get('success')}}</div>
+    <div class="alert alert-success">{{session::get('success')}}</div>
     @endif
     <div class="form-label-group">
-      <input type="text" id="inputUser" class="form-control" name="email" value="{{old('email')}}" placeholder="Số điện thoại" autofocus=""> <label for="inputUser">Số điện thoại</label>
+      <input type="text" id="inputUser" class="form-control" name="email" value="{{old('email')}}" placeholder="Email" autofocus=""> <label for="inputUser">Email</label>
       @if (Session::has('error_email'))
       <div class="alert alert-danger">{{session::get('error_email')}}</div>
       @endif

@@ -37,19 +37,35 @@
     </div>
     @endif
     @csrf
-    <!-- .form-group -->
     <div class="form-group">
         @if (Session::has('success'))
         <div class="alert alert-danger">{{session::get('success')}}</div>
         @endif
         <div class="form-label-group">
-            <input type="text" id="inputUser" class="form-control" name="name" value="{{old('name')}}" placeholder="Họ và tên" autofocus=""> <label for="inputUser">Số điện thoại</label>
+            <input type="text" id="inputUser" class="form-control" name="name" value="{{old('name')}}" placeholder="Họ và tên" autofocus=""> <label for="inputUser">Họ và tên</label>
             @if (Session::has('error_name'))
             <div class="alert alert-danger">{{session::get('error_name')}}</div>
             @endif
             <div class="error-message">
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('name') }}</p>
+                @endif
+            </div>
+        </div>
+    </div><!-- /.form-group -->
+    <!-- .form-group -->
+    <div class="form-group">
+        @if (Session::has('success'))
+        <div class="alert alert-danger">{{session::get('success')}}</div>
+        @endif
+        <div class="form-label-group">
+            <input type="text" id="inputUser" class="form-control" name="phone" value="{{old('phone')}}" placeholder="Số điện thoại" autofocus=""> <label for="inputUser">Số điện thoại</label>
+            @if (Session::has('error_phone'))
+            <div class="alert alert-danger">{{session::get('error_phone')}}</div>
+            @endif
+            <div class="error-message">
+                @if ($errors->any())
+                <p style="color:red">{{ $errors->first('phone') }}</p>
                 @endif
             </div>
         </div>
@@ -82,20 +98,6 @@
             <div class="error-message">
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('password') }}</p>
-                @endif
-            </div>
-        </div>
-    </div><!-- /.form-group -->
-    <div class="form-group">
-        <div class="form-label-group">
-            <input type="password" id="inputpassword_confirmation" class="form-control" name="password_confirmation" value="{{old('password_confirmation')}}" placeholder="Xác nhận mật khẩu"> <label for="inputpassword_confirmation">Xác nhận mật khẩu</label>
-
-            @if (Session::has('error_password_confirmation'))
-            <div class="alert alert-danger">{{session::get('error_password_confirmation')}}</div>
-            @endif
-            <div class="error-message">
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('password_confirmation') }}</p>
                 @endif
             </div>
         </div>

@@ -56,7 +56,6 @@ class DatabaseSeeder extends Seeder
         $user->name = 'Huỳnh Văn Toàn';
         $user->email = 'toan@gmail.com';
         $user->password = Hash::make('123456');
-        $user->password_confirmation = Hash::make('123456');
         $user->day_of_birth = '2002/09/24';
         $user->phone = '0935779035';
         $user->address = 'Quảng Trị';
@@ -70,7 +69,6 @@ class DatabaseSeeder extends Seeder
         $user->name = 'Võ Văn Tuấn';
         $user->email = 'tuan@gmail.com';
         $user->password = Hash::make('123456');
-        $user->password_confirmation = Hash::make('123456');
         $user->day_of_birth = '2002/04/24';
         $user->phone = '0777333274';
         $user->address = 'Quảng Trị';
@@ -84,7 +82,6 @@ class DatabaseSeeder extends Seeder
         $user->name = 'Mai Chiếm An';
         $user->email = 'an@gmail.com';
         $user->password = Hash::make('123456');
-        $user->password_confirmation = Hash::make('123456');
         $user->day_of_birth = '2003/06/27';
         $user->phone = '0916663237';
         $user->address = 'Quảng Trị';
@@ -98,7 +95,6 @@ class DatabaseSeeder extends Seeder
         $user->name = 'Nguyễn Văn Quốc Việt';
         $user->email = 'viet@gmail.com';
         $user->password = Hash::make('123456');
-        $user->password_confirmation = Hash::make('123456');
         $user->day_of_birth = '2001/03/21';
         $user->phone = '0123456789';
         $user->address = 'Quảng Trị';
@@ -112,7 +108,6 @@ class DatabaseSeeder extends Seeder
         $user->name = 'Trần Ngọc Linh';
         $user->email = 'Linh@gmail.com';
         $user->password = Hash::make('123456');
-        $user->password_confirmation = Hash::make('123456');
         $user->day_of_birth = '2003/11/11';
         $user->phone = '0123456788';
         $user->address = 'Quảng Trị';

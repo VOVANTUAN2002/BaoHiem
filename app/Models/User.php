@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes; // add soft delete
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\HasPermissions;
@@ -12,7 +13,7 @@ use App\Traits\HasPermissions;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory;
-    use Notifiable, HasPermissions; // add soft delete
+    use Notifiable, HasPermissions, SoftDeletes;// add soft delete
     protected $table = 'users';
 
     public $timestamps = false;

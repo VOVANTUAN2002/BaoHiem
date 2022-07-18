@@ -17,17 +17,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->date('day_of_birth')->nullable();
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('password');
-            $table->string('password_confirmation');
-            $table->string('avatar');
+            $table->string('avatar')->nullable();
             $table->string('phone')->unique();
-            $table->string('email')->nullable();
-            $table->string('gender');
+            $table->string('email');
+            $table->string('gender')->nullable();
             $table->date('start_day')->nullable();
             $table->unsignedBigInteger('user_group_id');
             $table->foreign('user_group_id')->references('id')->on('user_groups');
-            // $table->softDeletes();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
