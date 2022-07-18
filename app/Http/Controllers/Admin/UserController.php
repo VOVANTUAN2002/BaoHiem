@@ -50,7 +50,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        // $this->authorize('viewAny', User::class);
+        $this->authorize('viewAny', User::class);
         $query = User::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
@@ -91,7 +91,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', User::class);
+        $this->authorize('create', User::class);
         $userGroups = UserGroup::all();
         $users = User::select('*');
         $users = $users->paginate(3);
@@ -157,7 +157,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user =  User::find($id);
-        // $this->authorize('update', $user);
+        $this->authorize('update', $user);
         $userGroups = UserGroup::all();
         $params = [
             'user' => $user,
@@ -211,7 +211,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        // $this->authorize('delete', $user);
+        $this->authorize('delete', $user);
         try {
             $user->delete();
             return redirect()->route('users.index')->with('success', 'Xóa  thành công');
@@ -244,7 +244,7 @@ class UserController extends Controller
 
         $user = User::withTrashed()->find($id);
         // dd($user);
-        // $this->authorize('forceDelete', $user);
+        $this->authorize('forceDelete', $user);
         try {
             $user->forceDelete();
             return redirect()->route('users.trash')->with('success', 'Xóa' . ' ' . $user->name . ' ' .  'thành công');

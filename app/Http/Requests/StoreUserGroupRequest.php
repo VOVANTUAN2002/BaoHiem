@@ -25,7 +25,7 @@ class StoreUserGroupRequest extends FormRequest
     {
         return [
             'name' => 'required',
-
+            'description' => 'required',
         ];
     }
 
@@ -33,6 +33,7 @@ class StoreUserGroupRequest extends FormRequest
     {
         return [
             'name.required' => 'Vui lòng nhập tên nhóm',
+            'description.required' => 'Vui lòng nhập Mô tả',
         ];
     }
 

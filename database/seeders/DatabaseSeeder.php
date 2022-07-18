@@ -31,10 +31,12 @@ class DatabaseSeeder extends Seeder
     {
         $userGroup = new UserGroup();
         $userGroup->name = 'Quản Lý';
+        $userGroup->description = 'quản lý tất cả các thanh viên';
         $userGroup->save();
 
         $userGroup = new UserGroup();
         $userGroup->name = 'Nhân Viên';
+        $userGroup->description = 'có tất cả các quyền mà Quản Lý cung cấp';
         $userGroup->save();
     }
     public function importRoles()

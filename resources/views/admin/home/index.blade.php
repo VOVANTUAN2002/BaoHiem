@@ -9,7 +9,7 @@
     <div class="d-flex flex-column flex-md-row">
 
         <p class="lead">
-            <span class="font-weight-bold">Xin chào, .</span>
+            <span class="font-weight-bold">Xin chào,</span>
             <span class="d-block text-muted">Chúc bạn một ngày làm việc tốt lành !</span>
         </p>
         <div class="ml-auto">

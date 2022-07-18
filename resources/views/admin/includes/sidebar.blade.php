@@ -29,23 +29,28 @@
                 </a>
               </li><!-- /.menu-item -->
               <li class="menu-header">Bán Hàng </li>
-
+              @if(Auth::user()->hasPermission('Insurance_viewAny'))
               <li class="menu-item">
                 <a href="{{route('insurances.index')}}" class="menu-link">
                   <span class="menu-icon oi oi-list-rich"></span>
                   <span class="menu-text">Bảo Hiểm</span>
                 </a>
               </li>
+              @endif
+
+              @if(Auth::user()->hasPermission('User_viewAny'))
               <li class="menu-item has-child">
-                <a href="{{route('users.index')}}" class="menu-link">
+                <a href="{{ route('users.index') }}" class="menu-link">
                   <span class="menu-icon oi oi-person"></span>
                   <span class="menu-text">Nhân Viên</span>
                 </a>
               </li>
+              @endif
+
               @if(Auth::user()->hasPermission('UserGroup_viewAny'))
-              <li class="menu-item has-child">
-                <a href="{{route('userGroups.index')}}" class="menu-link">
-                  <span class="menu-icon oi oi-person"></span>
+              <li class="menu-item">
+                <a href="{{ route('userGroups.index') }}" class="menu-link">
+                  <span class="menu-icon oi oi-people"></span>
                   <span class="menu-text">Nhóm Nhân Viên</span>
                 </a>
               </li>

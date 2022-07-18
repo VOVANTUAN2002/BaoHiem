@@ -18,7 +18,7 @@ class InsurancePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->hasPermission('Insurance_viewAny');
     }
 
     /**
@@ -30,7 +30,7 @@ class InsurancePolicy
      */
     public function view(User $user, Insurance $insurance)
     {
-        //
+        return $user->hasPermission('Insurance_view');
     }
 
     /**
@@ -41,7 +41,7 @@ class InsurancePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->hasPermission('Insurance_create');
     }
 
     /**
@@ -53,7 +53,7 @@ class InsurancePolicy
      */
     public function update(User $user, Insurance $insurance)
     {
-        //
+        return $user->hasPermission('Insurance_update');
     }
 
     /**
@@ -65,7 +65,7 @@ class InsurancePolicy
      */
     public function delete(User $user, Insurance $insurance)
     {
-        //
+        return $user->hasPermission('Insurance_delete');
     }
 
     /**
@@ -77,7 +77,7 @@ class InsurancePolicy
      */
     public function restore(User $user, Insurance $insurance)
     {
-        //
+        return $user->hasPermission('Insurance_restore');
     }
 
     /**
@@ -89,6 +89,6 @@ class InsurancePolicy
      */
     public function forceDelete(User $user, Insurance $insurance)
     {
-        //
+        return $user->hasPermission('Insurance_forceDelete');
     }
 }

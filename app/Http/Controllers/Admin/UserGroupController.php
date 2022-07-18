@@ -21,7 +21,7 @@ class UserGroupController extends Controller
      */
     public function index(Request $request)
     {
-        // $this->authorize('viewAny',UserGroup::class);
+        $this->authorize('viewAny',UserGroup::class);
         $query = UserGroup::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
@@ -64,6 +64,7 @@ class UserGroupController extends Controller
         $userGroup = new UserGroup();
         $userGroup->name = $request->name;
         $userGroup->description = $request->description;
+        dd($userGroup);
         try {
             $userGroup->save();
             return redirect()->route('userGroups.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
@@ -93,7 +94,7 @@ class UserGroupController extends Controller
     public function edit($id)
     {
         $userGroup = UserGroup::find($id);
-        // $this->authorize('update',  $userGroup);
+        $this->authorize('update',  $userGroup);
         $current_user = Auth::user();
         $userRoles = $userGroup->roles->pluck('id', 'name')->toArray();
         // dd($current_user->userGroup->roles->toArray());
@@ -148,8 +149,7 @@ class UserGroupController extends Controller
     {
 
         $userGroup = UserGroup::find($id);
-        // $this->authorize('delete', $userGroup);
-
+        $this->authorize('delete', $userGroup);
 
         try {
             $userGroup->delete();
@@ -192,7 +192,7 @@ class UserGroupController extends Controller
     public function restore($id)
     {
         $userGroup = UserGroup::withTrashed()->find($id);
-        // $this->authorize('restore', $userGroup);
+        $this->authorize('restore', $userGroup);
 
         
         try {

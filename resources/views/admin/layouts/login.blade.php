@@ -48,7 +48,7 @@
         <header id="auth-header" class="auth-header"
             style="background-image: url(admin/images/illustration/img-1.png);">
             <h1>
-                <img src="/mobile/assets/img/logo.png"  alt="">
+                <img src="{{asset('admin/images/dia-chi-co-quan-bao-hiem-xa-hoi-thi-xa.png')}}" style="width: 200px;margin: 30px;" alt="">
                 <span class="sr-only">Đăng Nhập Hệ Thống</span>
             </h1>
             <p>Vui lòng đăng nhập,đăng ký vào hệ thống !</p>

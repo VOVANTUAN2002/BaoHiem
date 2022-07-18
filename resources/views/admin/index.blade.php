@@ -9,7 +9,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-
 </head>
 
 <body>
@@ -25,15 +24,6 @@
   <br>
   <br>
   <br>
-  <a class="btn btn-success" href="" style="width: 325px; height:100px; color:yellow">
-    <h1> <i> Sản Phẩm </i></h1>
-  </a>
-  <a class="btn btn-success" href="" style="width: 325px; height:100px; color:yellow">
-    <h1> <i> Danh mục sản phẩm </i></h1>
-  </a>
-  <a class="btn btn-success" href="" style="width: 325px; height:100px; color:yellow">
-    <h1> <i> Vai trò </i></h1>
-  </a>
 </body>
 
 </html>

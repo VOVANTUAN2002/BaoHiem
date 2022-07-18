@@ -7,6 +7,7 @@ use App\Http\Requests\StoreInsuranceRequest;
 use App\Http\Requests\UpdateInsuranceRequest;
 use App\Models\Image;
 use App\Models\Insurance;
+use App\Models\UserGroup;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -15,6 +16,34 @@ use Illuminate\Support\Str;
 
 class InsuranceController extends Controller
 {
+    public function paid_and_unpaid_amount(Request $request, $paid_and_unpaid_amount)
+    {
+        $insurance = Insurance::select('*');
+        switch ($paid_and_unpaid_amount) {
+            case 'insurances':
+                $insurance->where(1);
+                break;
+            case 'Paid_insurances':
+                $insurance->where('paid_and_unpaid_amount', 'Paid');
+                break;
+            case 'Amount_unpaid_insurances':
+                $insurance->where('paid_and_unpaid_amount', 'Amount_unpaid');
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        $insurance->orderBy('id', 'desc');
+        $insurances = $insurance->paginate(20);
+        $params = [
+            'insurances' => $insurances,
+            'paid_and_unpaid_amount' => $paid_and_unpaid_amount,
+            'filter' => $request->filter
+        ];
+
+        return view('admin.insurances.index', $params);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,23 +51,36 @@ class InsuranceController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny',Insurance::class);
         $insurances = Insurance::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
             $insurances->where('name', 'LIKE', '%' . $name . '%');
         }
-
+        if (isset($request->filter['contract']) && $request->filter['contract']) {
+            $contract = $request->filter['contract'];
+            $insurances->where('contract', 'LIKE', '%' . $contract . '%');
+        }
+        if (isset($request->filter['email']) && $request->filter['email']) {
+            $email = $request->filter['email'];
+            $insurances->where('email', 'LIKE', '%' . $email . '%');
+        }
+        if (isset($request->filter['phone']) && $request->filter['phone']) {
+            $phone = $request->filter['phone'];
+            $insurances->where('phone', 'LIKE', '%' . $phone . '%');
+        }
         $insurances->orderBy('id', 'desc');
         $insurances = $insurances->paginate(20);
-        // foreach ($Insurances as $Insurance) {
-        //     if ($Insurance->Insurance_type == 'Consignment') {
-        //         $now = Carbon::now();
-        //         $dt = Carbon::create($Insurance->Insurance_end_date);
-        //         $Insurance->remaining_day = $now->diffInDays($dt);
-        //     }
-        // }
+        foreach ($insurances as $insurance) {
+            if ($insurance->paid_and_unpaid_amount == 'Paid') {
+                $now = Carbon::now();
+                $dt = Carbon::create($insurance->insurance_end_date);
+                $insurance->remaining_day = $now->diffInDays($dt);
+            }
+        }
         $params = [
             'insurances' => $insurances,
+            'paid_and_unpaid_amount' => 'all'
         ];
 
         return view('admin.insurances.index', $params);
@@ -51,7 +93,7 @@ class InsuranceController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', insurance::class);
+        $this->authorize('create', insurance::class);
         return view('admin.insurances.create');
     }
 
@@ -139,7 +181,7 @@ class InsuranceController extends Controller
     {
         $insurance = Insurance::find($id);
         $insurances = Insurance::all();
-        // $this->authorize('update', $product);
+        $this->authorize('update', $insurance);
         $params = [
             'insurance' => $insurance,
             'insurances' => $insurances
@@ -218,13 +260,57 @@ class InsuranceController extends Controller
     public function destroy($id)
     {
         $insurance = Insurance::find($id);
-        // $this->authorize('delete', $insurance);
+        $this->authorize('delete', $insurance);
         try {
             $insurance->delete();
             return redirect()->route('insurances.index')->with('success', 'Xóa thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('insurances.index')->with('error', 'Xóa không thành công');
+        }
+    }
+
+    public function trashedItems(Request $request)
+    {
+        $query = Insurance::onlyTrashed();
+        //sắp xếp thứ tự lên trước khi update
+        $query->orderBy('id', 'desc');
+        $insurances = $query->paginate(20);
+        $userGroups = UserGroup::all();
+
+        $params = [
+            'insurances' => $insurances,
+            'userGroups' =>  $userGroups,
+            'filter' => $request->filter,
+            'user_role' => 'trash'
+        ];
+        return view('admin.insurances.trash', $params);
+    }
+
+    public function force_destroy($id)
+    {
+
+        $insurance = Insurance::withTrashed()->find($id);
+        $this->authorize('forceDelete', $insurance);
+        try {
+            $insurance->forceDelete();
+            return redirect()->route('insurances.trash')->with('success', 'Xóa' . ' ' . $insurance->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('insurances.trash')->with('error', 'Xóa' . ' ' . $insurance->name . ' ' .  'không thành công');
+        }
+    }
+
+    public function restore($id)
+    {
+        $insurance = Insurance::withTrashed()->find($id);
+        $this->authorize('restore', $insurance);
+        try {
+            $insurance->restore();
+            return redirect()->route('insurances.trash')->with('success', 'Khôi phục' . ' ' . $insurance->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('insurances.trash')->with('error', 'Khôi phục' . ' ' . $insurance->name . ' ' .  'không thành công');
         }
     }
 }

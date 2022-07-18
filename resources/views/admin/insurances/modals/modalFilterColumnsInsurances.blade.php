@@ -1,5 +1,5 @@
 <!-- #modalFilterColumnsInsurances -->
-<div class="modal fade" id="modalFilterColumnsInsurances" tabindex="-1" role="dialog" aria-labelledby="modalFilterColumnsInsurancesLabel" aria-hidden="true">
+<div class="modal fade" id="modalFilterColumnsinsurances" tabindex="-1" role="dialog" aria-labelledby="modalFilterColumnsInsurancesLabel" aria-hidden="true">
     <!-- .modal-dialog -->
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <!-- .modal-content -->
@@ -15,7 +15,7 @@
                     <!-- .form-row -->
                     <div class="form-group form-row filter-row">
                         <div class="col-lg-4">
-                            <label class="">Tên sản phẩm</label>
+                            <label class="">Họ tên khách hàng</label>
                         </div>
                         <div class="col-lg-8">
                             <div class="input text">
@@ -23,79 +23,34 @@
                             </div>
                         </div>
                     </div>
-                    <!-- .form-row -->
                     <div class="form-group form-row filter-row">
                         <div class="col-lg-4">
-                            <label class="">Tỉnh/Thành phố</label>
+                            <label class="">Số hợp đồng</label>
                         </div>
                         <div class="col-lg-8">
                             <div class="input text">
-                                <select name="filter[province_id]" class="form-control province_id">
-                                    <option value="">Vui lòng chọn</option>
-                                    <option value="">
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- .form-row -->
-                    <div class="form-group form-row filter-row">
-                        <div class="col-lg-4">
-                            <label class="">Quận/Huyện</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="input text">
-
-                                <select name="filter[district_id]" class="form-control district_id">
-                                    <option value="">Vui lòng chọn</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- .form-row -->
-                    <div class="form-group form-row filter-row">
-                        <div class="col-lg-4">
-                            <label class="">Phường/Xã</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="input text">
-                                <select name="filter[district_id]" class="form-control district_id">
-                                    <option value="">Vui lòng chọn</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- .form-row -->
-                    <div class="form-group form-row filter-row">
-                        <div class="col-lg-4">
-                            <label class="">Chi nhánh </label>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="input text">
-                                <select name="filter[branch_id]" class="form-control branch_id">
-                                    <option value="">Vui lòng chọn</option>
-
-                                </select>
+                                <input type="text" name="filter[contract]" class="form-control filter-column f-contract" value=" {{ (isset($filter['contract']) ? $filter['contract'] : '') }} " id="contract" />
                             </div>
                         </div>
                     </div>
                     <div class="form-group form-row filter-row">
                         <div class="col-lg-4">
-                            <label class="">Tình trạng </label>
+                            <label class="">Email</label>
                         </div>
                         <div class="col-lg-8">
                             <div class="input text">
-
+                                <input type="text" name="filter[email]" class="form-control filter-column f-email" value=" {{ (isset($filter['email']) ? $filter['email'] : '') }} " id="email" />
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group form-row filter-row">
                         <div class="col-lg-4">
-                            <label class="">Loại sản phẩm </label>
+                            <label class="">Số điện thoại</label>
                         </div>
                         <div class="col-lg-8">
-
+                            <div class="input text">
+                                <input type="text" name="filter[phone]" class="form-control filter-column f-phone" value=" {{ (isset($filter['phone']) ? $filter['phone'] : '') }} " id="phone" />
+                            </div>
                         </div>
                     </div>
                 </div><!-- #filter-columns -->
@@ -110,57 +65,3 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /#modalFilterColumnsInsurances -->
-
-
-<script>
-    jQuery(document).ready(function() {
-
-        jQuery('.province_id').on('change', function() {
-            var province_id = jQuery(this).val();
-
-            $.ajax({
-                url: "/api/get_districts/" + province_id,
-                type: "GET",
-                success: function(data) {
-                    var districts_html = '<option value="">Vui lòng chọn</option>';
-                    for (const district of data) {
-                        districts_html += '<option value="' + district.id + '">' +
-                            district.name + '</option>';
-                    }
-                    jQuery('.district_id').html(districts_html);
-                }
-            });
-        });
-
-        jQuery('.district_id').on('change', function() {
-            var district_id = jQuery(this).val();
-
-            $.ajax({
-                url: "/api/get_wards/" + district_id,
-                type: "GET",
-                success: function(data) {
-                    var wards_html = '<option value="">Vui lòng chọn</option>';
-                    for (const ward of data) {
-                        wards_html += '<option value="' + ward.id + '">' + ward.name + '</option>';
-                    }
-                    jQuery('.ward_id').html(wards_html);
-                }
-            });
-        });
-        jQuery('.branch_id').on('change', function() {
-            var branch_id = jQuery(this).val();
-            $.ajax({
-                url: "/api/get_users_by_branch_id/" + branch_id,
-                type: "GET",
-                success: function(data) {
-                    var branches_html = '';
-                    for (const user of data) {
-                        branches_html += '<option value="' + user.id + '">' + user.name + '</option>';
-                    }
-                    jQuery('.user_id').html(branches_html);
-                }
-            });
-        });
-
-    });
-</script>

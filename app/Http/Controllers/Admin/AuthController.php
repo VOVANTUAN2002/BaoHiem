@@ -37,17 +37,19 @@ class AuthController extends Controller
             } else {
                 // Insert thất bại sẽ hiển thị thông báo lỗi
                 Session::flash('error', 'Đăng ký thành viên thất bại!');
-                return redirect()->route('register');
+                return redirect('administrator/register');
             }
         }
     }
     protected function create(array $data)
     {
+        // dd($data);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'password' => bcrypt($data['password']),
+            'user_group_id' => $data['user_group_id'],
         ]);
     }
 
@@ -95,7 +97,8 @@ class AuthController extends Controller
         if (Auth::attempt($data)) {
             return redirect()->route('admin.index');
         } else {
-            return false;
+            Session::flash('error', 'Đăng nhập thành viên thất bại!');
+            return redirect('administrator/login');
         }
     }
 }

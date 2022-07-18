@@ -1,6 +1,19 @@
 @extends('admin.layouts.login')
 @section('content')
 <form action="{{ route('postLogin') }}" method="post" class="auth-form">
+  <?php //Hiển thị thông báo thành công
+  ?>
+  <?php //Hiển thị thông báo lỗi
+  ?>
+  @if ( Session::has('error') )
+  <div class="alert alert-danger alert-dismissible" role="alert">
+    <strong>{{ Session::get('error') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+  </div>
+  @endif
   @csrf
   <!-- .form-group -->
   <div class="form-group">
@@ -39,6 +52,9 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng nhập</button>
   </div><!-- /.form-group -->
   <!-- .form-group -->
+  <div class="form-group">
+        <p>Đăng ký <a href="{{ url('/administrator/register') }}"> tại đây</a></p>
+    </div><!-- /.form-group -->
   <div class="form-group text-center">
     <div class="custom-control custom-control-inline custom-checkbox">
       <input type="checkbox" class="custom-control-input" id="remember-me"> <label class="custom-control-label" for="remember-me">Lưu thông tin</label>

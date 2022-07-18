@@ -103,6 +103,14 @@
         </div>
     </div><!-- /.form-group -->
     <!-- .form-group -->
+    <div class="col-lg-4">
+            <label class="">Chức vụ hiện tại </label>
+        </div>
+    <select class="form-select form-control" name="user_group_id">
+                <option>Vui lòng chọn</option>
+                <option value="2">Nhân Viên</option>
+                <option value="1">Quản Lý</option>
+            </select>
     <div class="form-group">
         <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng ký</button>
     </div><!-- /.form-group -->

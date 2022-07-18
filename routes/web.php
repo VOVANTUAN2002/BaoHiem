@@ -27,12 +27,14 @@ Route::group([
     Route::prefix('users')->group(function () {
         Route::get('/user_role/{user_role}', [UserController::class, 'user_role'])->name('users.user_role');
     });
-
-    //     Route::prefix('insurances')->group(function () {
-    //         Route::get('/trash', [InsuranceController::class, 'trashedItems'])->name('insurances.trash');
-    //         Route::delete('/force_destroy/{id}', [InsuranceController::class, 'force_destroy'])->name('insurances.force_destroy');
-    //         Route::get('/restore/{id}', [InsuranceController::class, 'restore'])->name('insurances.restore');
-    //     });
+    Route::prefix('insurances')->group(function () {
+        Route::get('/paid_and_unpaid_amount/{paid_and_unpaid_amount}', [insuranceController::class, 'paid_and_unpaid_amount'])->name('insurances.paid_and_unpaid_amount');
+    });
+    Route::prefix('insurances')->group(function () {
+        Route::get('/trash', [InsuranceController::class, 'trashedItems'])->name('insurances.trash');
+        Route::delete('/force_destroy/{id}', [InsuranceController::class, 'force_destroy'])->name('insurances.force_destroy');
+        Route::get('/restore/{id}', [InsuranceController::class, 'restore'])->name('insurances.restore');
+    });
     Route::prefix('users')->group(function () {
         Route::get('/trash', [UserController::class, 'trashedItems'])->name('users.trash');
         Route::delete('/force_destroy/{id}', [UserController::class, 'force_destroy'])->name('users.force_destroy');

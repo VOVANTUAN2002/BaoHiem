@@ -14,16 +14,34 @@
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto">Quản Lý Bảo Hiểm</h1>
         <div class="btn-toolbar">
+            @if(Auth::user()->hasPermission('Insurance_create'))
             <a href="{{route('insurances.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
+            @endif
         </div>
     </div>
 </header>
 
 <div class="page-section">
     <div class="card card-fluid">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a href="{{route('insurances.index')}}" class="nav-link <?= ($paid_and_unpaid_amount == 'all') ? 'active' : '' ?>">Tất Cả</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('insurances.paid_and_unpaid_amount','Paid_insurances')}}" class="nav-link <?= ($paid_and_unpaid_amount == 'Paid_insurances') ? 'active' : '' ?>"> Đã thanh toán </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('insurances.paid_and_unpaid_amount','Amount_unpaid_insurances')}}" class="nav-link <?= ($paid_and_unpaid_amount == 'Amount_unpaid_insurances') ? 'active' : '' ?>"> Số tiền chưa thanh toán </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= ($paid_and_unpaid_amount == 'trash') ? 'active' : '' ?>"" href=" {{route('insurances.trash')}}">Thùng Rác</a>
+                </li>
+            </ul>
+        </div>
         <div class="card-body">
             <div class="row mb-2">
                 <div class="col">
@@ -89,16 +107,20 @@
                             @endif
                             <td class="align-middle"> {{number_format($insurance->total)}} {{ $insurance->unit }}</td>
                             <td>
+                            @if(Auth::user()->hasPermission('Insurance_update'))
                                 <a href="{{route('insurances.edit',$insurance->id)}}" title="Edit Student">
                                     <button class="btn btn-sm btn-icon btn-secondary">
                                         <i class="fa fa-pencil-alt"></i>
                                     </button>
                                 </a>
+                                @endif
+                                @if(Auth::user()->hasPermission('Insurance_delete'))
                                 <form method="POST" action="{{ route('insurances.destroy',$insurance->id )}}" accept-charset="UTF-8" style="display:inline">
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirm('Xóa {{$insurance->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                 </form>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

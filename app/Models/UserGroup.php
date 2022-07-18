@@ -4,11 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes; // add soft delete
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use App\Traits\HasPermissions;
 
 class UserGroup extends Model
 {
-
-    use HasFactory;
+    use HasApiTokens, HasFactory;
+    use Notifiable, HasPermissions, SoftDeletes;// add soft delete
     protected $table = 'user_groups';
 
     public function users()

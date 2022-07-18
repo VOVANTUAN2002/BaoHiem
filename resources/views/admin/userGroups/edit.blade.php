@@ -31,7 +31,6 @@
                     <div class="form-group">
                         <label for="tf1"> Mô tả </label>
                         <textarea name="description" class="form-control" >{{ $userGroup->description }}</textarea>
-
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('description') }}</p>
                         @endif

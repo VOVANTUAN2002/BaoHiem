@@ -42,76 +42,72 @@
                             </div>
                         </div>
                         <!-- modalFilterColumns  -->
-                        @include('admin.products.modals.modalFilterColumnsProducts')
+                        @include('admin.insurances.modals.modalFilterColumnsinsurances')
                     </form>
                     <!-- modalFilterColumns  -->
-                    @include('admin.products.modals.modalSaveSearchProducts')
+                    @include('admin.insurances.modals.modalSaveSearchinsurances')
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <br>
-                        @if (Session::has('success'))
-                        <div class="alert alert-success">{{session::get('success')}}</div>
-                        @endif
-                        @if (Session::has('error'))
-                        <div class="alert alert-danger">{{session::get('error')}}</div>
-                        @endif
-                        <br>
-                        <tr>
-                            <th>Tên</th>
-                            <th>Giá</th>
-                            <th>Địa chỉ</th>
-                            <th>Loại sản phẩm</th>
-                            <th>Trạng thái</th>
-                            <th>Chức năng </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($products as $product)
-                        <tr>
-                            <td class="align-middle"> {{ $product->name }}
-                                <br><span class="badge badge-success">CN: {{ $product->branch->name }}</span>
-                                <span class="badge badge-primary">Mã: {{ $product->id }}</span>
-                                <span class="badge badge-warning">Loại: {{ __($product->product_type) }}</span>
-                                @if( $product->product_hot)
-                                <span class="badge badge-danger">Sản phẩm HOT</span>
-                                @endif
-                                @if( $product->product_open)
-                                <span class="badge badge-info">Sắp mở bán</span>
-                                @endif
-                            </td>
-                            <td class="align-middle">
-                                @if( $product->unit == 'agree' )
-                                Thỏa thuận
-                                @elseif( $product->unit == 'm2' )
-                                {{number_format($product->price)}}/{{ $product->unit }}
-                            </td>
-                            @else
-                            {{number_format($product->price)}} {{ $product->unit }}</td>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            @if (Session::has('success'))
+                            <div class="alert alert-success mt-1">{{session::get('success')}}</div>
                             @endif
-                            <td class="align-middle"> {{ $product->address }} </td>
-                            <td class="align-middle"> {{ __($product->product_type) }} </td>
-                            <td class="align-middle"> {{ __($product->status) }} </td>
-                            <td>
-                                <form action="{{ route('products.force_destroy',$product->id )}}" style="display:inline" method="post">
-                                    <button onclick="return confirm('Xóa vĩnh viễn {{$product->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
-                                    @csrf
-                                    @method('delete')
-                                </form>
-                                <span class="sr-only">Edit</span></a> <a href="{{route('products.restore',$product->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                            @if (Session::has('error'))
+                            <div class="alert alert-danger mt-1">{{session::get('error')}}</div>
+                            @endif
+                            <tr>
+                                <th>Tên</th>
+                                <th>Gói hợp đồng</th>
+                                <th>Tổng tiền</th>
+                                <th>Chức năng </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($insurances as $insurance)
+                            <tr>
+                                <td class="align-middle"> {{ $insurance->name }}</td>
+                                @if( $insurance->contract_package == 'Term_life_insurance')
+                                <td class="align-middle" value="Term_life_insurance">Bảo hiểm sinh kỳ</td>
+                                @endif
+                                @if( $insurance->contract_package == 'Term_insurance')
+                                <td class="align-middle" value="Term_insurance">Bảo hiểm tử kỳ</td>
+                                @endif
+                                @if( $insurance->contract_package == 'Mixed_insurance')
+                                <td class="align-middle" value="Mixed_insurance">Bảo hiểm hỗn hợp</td>
+                                @endif
+                                @if( $insurance->contract_package == 'Periodic_payment_insurance')
+                                <td class="align-middle" value="Periodic_payment_insurance">Bảo hiểm trả tiền định kỳ</td>
+                                @endif
+                                @if( $insurance->contract_package == 'Lifetime_insurance')
+                                <td class="align-middle" value="Lifetime_insurance">Bảo hiểm trọn đời</td>
+                                @endif
+                                <td class="align-middle"> {{number_format($insurance->total)}} {{ $insurance->unit }}</td>
+                                <td>
+                                    @if(Auth::user()->hasPermission('Insurance_restore'))
+                                    <form action="{{ route('insurances.force_destroy',$insurance->id )}}" style="display:inline" method="post">
+                                        <button onclick="return confirm('Xóa vĩnh viễn {{$insurance->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
+                                        @csrf
+                                        @method('delete')
+                                    </form>
+                                    @endif
+                                    @if(Auth::user()->hasPermission('Insurance_forceDelete'))
+                                    <span class="sr-only">Edit</span></a> <a href="{{route('insurances.restore',$insurance->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <nav aria-label="Page navigation example">
             <div class='float:right'>
                 <ul class="pagination">
-                    <span aria-hidden="true">{{ $products->links() }}</span>
+                    <span aria-hidden="true">{{ $insurances->links() }}</span>
                 </ul>
             </div>
         </nav>
