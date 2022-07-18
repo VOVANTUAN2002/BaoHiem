@@ -121,6 +121,7 @@ class UserController extends Controller
         $user->password         = Hash::make($request->password);
         $user->start_day        = $request->start_day;
         $user->user_group_id    = $request->user_group_id;
+        $user->note    = $request->note;
 
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
@@ -181,6 +182,7 @@ class UserController extends Controller
         $user->address          = $request->address;
         $user->email            = $request->email;
         $user->phone            = $request->phone;
+        $user->note    = $request->note;
         if ($request->password) {
             $user->password         = Hash::make($request->password);
         }
@@ -193,7 +195,7 @@ class UserController extends Controller
             $user->avatar           = 'avatars/' . $avatar->getClientOriginalName();
         }
 
-
+// dd($user);
         try {
             $user->save();
             return redirect()->route('users.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');

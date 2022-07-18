@@ -45,7 +45,6 @@
                     </a>
                 </li>
                 @endforeach
-
                 <li class="nav-item">
                     <a href="{{route('users.trash')}}" class="nav-link">Thùng Rác</a>
                 </li>
@@ -102,9 +101,8 @@
                             <td class="align-middle"> {{ $user->userGroup->name }} </td>
                             <td>
                                 @if(Auth::user()->hasPermission('User_delete'))
-                                @if($user->id != 1)
+                                @if($user->id != 2)
                                 <form action="{{ route('users.destroy',$user->id )}}" style="display:inline" method="post">
-
                                     <button onclick="return confirm('Xóa {{$user->name}} ?')" class="btn btn-sm btn-icon btn-secondary">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
@@ -115,7 +113,9 @@
                                 @endif
 
                                 @if(Auth::user()->hasPermission('User_update'))
+                                @if($user->id != 2)
                                 <span class="sr-only">Edit</span></a> <a href="{{route('users.edit',$user->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
+                                @endif
                                 @endif
                             </td>
                         </tr>

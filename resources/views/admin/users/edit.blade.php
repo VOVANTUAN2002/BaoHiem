@@ -104,7 +104,8 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label>Ghi chú</label> <input name="note" type="text" class="form-control" id="" placeholder="Nhập ghi chú" value="{{ $user->note }}">
+                    <label>Ghi chú</label>
+                    <input name="note" type="text" class="form-control" id="" placeholder="Nhập ghi chú" value="{{ $user->note }}">
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('note') }}</p>
                     @endif
@@ -117,7 +118,6 @@
                         <div class="form-group">
                             <label>Nhóm nhân viên</label>
                             <select class="form-select form-control" name="user_group_id">
-
                                 @foreach($userGroups as $userGroup)
                                 <option value="{{ $userGroup->id }}" @selected($userGroup->id == $user->user_group_id)>
                                     {{ $userGroup->name }}

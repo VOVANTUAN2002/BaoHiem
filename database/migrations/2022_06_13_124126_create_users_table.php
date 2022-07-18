@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('phone');
             $table->string('email');
+            $table->string('note');
             $table->string('gender')->nullable();
             $table->date('start_day')->nullable();
             $table->unsignedBigInteger('user_group_id');

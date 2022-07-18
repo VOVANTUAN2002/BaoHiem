@@ -64,6 +64,7 @@ class DatabaseSeeder extends Seeder
         $user->start_day = '2022/01/10';
         $user->user_group_id  = '2';
         $user->gender = 'Nam';
+        $user->note = 'tao la ai';
         $user->avatar = 'upload/admin14.png';
         $user->save();
 
@@ -75,6 +76,7 @@ class DatabaseSeeder extends Seeder
         $user->phone = '0777333274';
         $user->address = 'Quảng Trị';
         $user->start_day = '2021/10/29';
+        $user->note = 'tao la ai';
         $user->user_group_id  = '1';
         $user->gender = 'Nam';
         $user->avatar = 'upload/admin13.png';
@@ -87,6 +89,7 @@ class DatabaseSeeder extends Seeder
         $user->day_of_birth = '2003/06/27';
         $user->phone = '0916663237';
         $user->address = 'Quảng Trị';
+        $user->note = 'tao la ai';
         $user->start_day = '2021/10/29';
         $user->user_group_id  = '2';
         $user->gender = 'Nam';
@@ -102,6 +105,7 @@ class DatabaseSeeder extends Seeder
         $user->address = 'Quảng Trị';
         $user->start_day = '2022/02/12';
         $user->user_group_id  = '2';
+        $user->note = 'tao la ai';
         $user->gender = 'Nam';
         $user->avatar = 'upload/admin22.png';
         $user->save();
@@ -116,6 +120,7 @@ class DatabaseSeeder extends Seeder
         $user->start_day = '2022/02/12';
         $user->user_group_id  = '2';
         $user->gender = 'Nam';
+        $user->note = 'tao la ai';
         $user->avatar = 'upload/admin21.png';
         $user->save();
     }

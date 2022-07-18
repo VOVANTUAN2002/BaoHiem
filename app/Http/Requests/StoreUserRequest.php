@@ -26,6 +26,7 @@ class StoreUserRequest extends FormRequest
         return [
             'name' => 'required',
             'address' => 'required',
+            'note' => 'required',
             'phone' => 'required|unique:users',
             'password' => 'required',
             'user_group_id' => 'required',
@@ -39,6 +40,7 @@ class StoreUserRequest extends FormRequest
             'address.required' => 'Vui lòng nhập địa chỉ',
             'phone.required' => 'Vui lòng nhập số điện thoại',
             'phone.unique' => 'Số điện thoại đã được đăng kí',
+            'note.unique' => 'Vui lòng nhập ghi chú',
             'password.required' => 'Vui lòng nhập mật khẩu',
             'user_group_id.required' => 'Vui lòng nhập nhóm nhân viên',
         ];

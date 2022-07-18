@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <label for="tf1"> Mô tả </label>
-                        <textarea name="description" class="form-control" >{{ $userGroup->description }}</textarea>
+                        <textarea name="description" class="form-control">{{ $userGroup->description }}</textarea>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('description') }}</p>
                         @endif
@@ -39,42 +39,34 @@
                         <label for="tf1">Quyền hạn </label>
                         <div class="row">
                             @foreach ($group_names as $group_name => $roles)
-                            <div class="list-group list-group-flush list-group-bordered col-lg-4" >
+                            <div class="list-group list-group-flush list-group-bordered col-lg-4">
                                 <div class="list-group-header"> {{ __($group_name) }} </div>
                                 @foreach ($roles as $role)
                                 <div class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span>{{ __($role['name']) }}</span> 
+                                    <span>{{ __($role['name']) }}</span>
                                     <!-- .switcher-control -->
                                     <label class="switcher-control">
-                                        <input type="checkbox" 
-                                        @checked( in_array($role['id'],$userRoles) )
-                                        name="roles[]" class="switcher-input" value="{{ $role['id'] }}" > 
+                                        <input type="checkbox" @checked( in_array($role['id'],$userRoles) ) name="roles[]" class="switcher-input" value="{{ $role['id'] }}">
                                         <span class="switcher-indicator"></span>
-                                    </label> 
+                                    </label>
                                     <!-- /.switcher-control -->
                                 </div>
-                            @endforeach
+                                @endforeach
                             </div>
                             @endforeach
                         </div>
-                       
                     </div>
                 </fieldset>
                 <br>
                 <div class="row">
                     <div class="col-lg-6">
                         <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Hủy</button>
-
                     </div>
                     <div class="col-lg-6">
                         <button style="float: right;" class="btn btn-primary" type="submit">Cập nhật<noscript></noscript> </button>
-
                     </div>
                 </div>
-
-
             </form>
-
         </div>
     </div>
 </div>
