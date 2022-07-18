@@ -11,6 +11,7 @@
     </nav>
     <h1 class="page-title"></h1>
 </header>
+
 @if (Session::has('success'))
 <div class="alert alert-success mt-1">{{session::get('success')}}</div>
 @endif
@@ -160,7 +161,7 @@
                             <label class="custom-control-label" for="rd1">Bảo hiểm sinh kỳ</label>
                         </div>
                         <div class="custom-control custom-control-inline custom-radio">
-                            <input type="radio" class="custom-control-input" name="contract_package" id="rd2" @checked( old('contract_package')=='Term_insurance' ) value="Term_life_insurance">
+                            <input type="radio" class="custom-control-input" name="contract_package" id="rd2" @checked( old('contract_package')=='Term_insurance' ) value="Term_insurance">
                             <label class="custom-control-label" for="rd2">Bảo hiểm tử kỳ</label>
                         </div>
                         <div class="custom-control custom-control-inline custom-radio">
